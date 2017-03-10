@@ -12,13 +12,15 @@ import java.util.Iterator;
 public class Aurreprozesatzailea {
 	
 	public static void main(String[] args) throws Exception {
-		FileReader fi = new FileReader(args[0]);
-		BufferedReader br = new BufferedReader(fi);
-		
-		
-		FileWriter fw = new FileWriter(args[1]);
-		BufferedWriter bw = new BufferedWriter(fw);
-		Aurreprozesatzailea.arffIdatzi(bw, Aurreprozesatzailea.datuakIrakurri(br));
+		for (int kont =0; kont<args.length; kont++){	
+			FileReader fi = new FileReader(args[kont]);
+			BufferedReader br = new BufferedReader(fi);
+			
+			
+			FileWriter fw = new FileWriter(args[++kont]);
+			BufferedWriter bw = new BufferedWriter(fw);
+			Aurreprozesatzailea.arffIdatzi(bw, Aurreprozesatzailea.datuakIrakurri(br));
+		}
 	}
 
 	
