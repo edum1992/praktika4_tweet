@@ -2,20 +2,24 @@ package praktika4_Tweet;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
-
+import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
+import weka.filters.unsupervised.attribute.*;
+
+import weka.filters.Filter;
 
 public class Aurreprozesatzailea {
+	
+	static StringToWordVector bektor = new StringToWordVector();
 	
 	public static void main(String[] args) throws Exception {
 		for (int kont =0; kont<args.length; kont++){	
 			FileReader fi = new FileReader(args[kont]);
 			BufferedReader br = new BufferedReader(fi);
-			
 			
 			FileWriter fw = new FileWriter(args[++kont]);
 			BufferedWriter bw = new BufferedWriter(fw);
@@ -35,7 +39,7 @@ public class Aurreprozesatzailea {
 		for (int i = 0; i < arraya.size(); i++) {
 			String[] lista = arraya.get(i);
 			for (int j = 0; j < lista.length; j++) {
-				lista[j] = lista[j].replaceAll("[^A-Za-z0-9 ]", " ");
+				lista[j] = lista[j].replaceAll("[^A-Za-z]", "");
 			}
 			arraya.set(i, lista);
 		}
@@ -72,8 +76,9 @@ public class Aurreprozesatzailea {
 		}
 		bw.flush();
 		bw.close();
-
 	}
+	
+	
 		
 	
 
