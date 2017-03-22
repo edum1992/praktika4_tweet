@@ -30,6 +30,5 @@ public class arff2Bow {
 		gorde.setInstances(datuak_filtratuta);
 		gorde.setFile(f);
 		gorde.writeBatch();
-		
 	}
 }
