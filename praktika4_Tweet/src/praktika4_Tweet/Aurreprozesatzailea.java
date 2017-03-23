@@ -39,7 +39,7 @@ public class Aurreprozesatzailea {
 		for (int i = 0; i < arraya.size(); i++) {
 			String[] lista = arraya.get(i);
 			for (int j = 0; j < lista.length; j++) {
-				lista[j] = lista[j].replaceAll("[^A-Za-z]", "");
+				lista[j] = lista[j].replaceAll("[^A-Za-z ]", " ");
 			}
 			arraya.set(i, lista);
 		}
@@ -68,7 +68,7 @@ public class Aurreprozesatzailea {
 			while (oraingoa.length < 5 && i.hasNext())
 				oraingoa = i.next();
 			bw.write("'" + oraingoa[0].replace("\"", "") + "',");
-			bw.write(oraingoa[1] + ",");
+			bw.write(oraingoa[1].replace("unknown", "?") + ",");
 			bw.write(oraingoa[2] + ",");
 			bw.write("'" + oraingoa[3] + "',");
 			bw.write("'" + oraingoa[4].trim().replace(",", "").replace("'", ""));
