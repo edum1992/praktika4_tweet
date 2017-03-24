@@ -28,7 +28,7 @@ public class Aurreprozesatzailea {
 	}
 
 	
-	private static ArrayList<String[]> datuakIrakurri(BufferedReader br) throws Exception {
+	public static ArrayList<String[]> datuakIrakurri(BufferedReader br) throws Exception {
 		ArrayList<String[]> arraya = new ArrayList<>();
 		String s;
 		br.readLine();
@@ -39,7 +39,7 @@ public class Aurreprozesatzailea {
 		for (int i = 0; i < arraya.size(); i++) {
 			String[] lista = arraya.get(i);
 			for (int j = 0; j < lista.length; j++) {
-				lista[j] = lista[j].replaceAll("[^A-Za-z ]", " ");
+				lista[j] = lista[j].replaceAll("[^A-Za-z0-9 ]", " ");
 			}
 			arraya.set(i, lista);
 		}
@@ -47,7 +47,7 @@ public class Aurreprozesatzailea {
 	}
 		
 	
-	private static void arffIdatzi(BufferedWriter bw, ArrayList<String[]> array) throws IOException {
+	public static void arffIdatzi(BufferedWriter bw, ArrayList<String[]> array) throws IOException {
 		bw.write("@relation tweet");
 		bw.newLine();
 		bw.write("@attribute 'Topic' String");
