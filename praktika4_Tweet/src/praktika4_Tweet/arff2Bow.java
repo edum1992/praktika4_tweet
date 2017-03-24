@@ -1,5 +1,6 @@
 package praktika4_Tweet;
 
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
@@ -20,6 +21,7 @@ public class arff2Bow {
 	
 	public static void main(String[] args) throws Exception {
 		FileReader fi = new FileReader(args[0]);
+		BufferedReader bw = new BufferedReader(fi);
 		Instances data = new Instances(fi);
 		data.setClassIndex(1);
 		fi.close();
@@ -27,11 +29,15 @@ public class arff2Bow {
 		ArffSaver gorde = new ArffSaver();
 		File f = new File(args[1]);
 		
-		Instances datuak_filtratuta = stringToWordVector(data, Integer.MAX_VALUE, false);
-		datuak_filtratuta = sparseToNonSparseAplikatu(datuak_filtratuta);
-		datuak_filtratuta = infoGainAttributeEvalAplikatu(datuak_filtratuta);
 		
-		gorde.setInstances(datuak_filtratuta);
+		Instances datuak_kenduta = atributuakKendu(data);
+		Instances datuak_BOW = stringToWordVector(datuak_kenduta, Integer.MAX_VALUE, false);
+		System.out.println(datuak_BOW.numAttributes());
+		datuak_BOW = sparseToNonSparseAplikatu(datuak_BOW);
+		Instances datuak_InfoGain = infoGainAttributeEvalAplikatu(datuak_BOW);
+		Instances datuakTFIDF = stringToWordVector(data, Integer.MAX_VALUE, true);
+		
+		gorde.setInstances(datuak_InfoGain);
 		gorde.setFile(f);
 		gorde.writeBatch();
 	}
@@ -48,7 +54,7 @@ public class arff2Bow {
 		StringToWordVector stwv = new StringToWordVector(hitzKopurua);
 		stwv.setIDFTransform(erabilia);
 		stwv.setTFTransform(erabilia);
-		stwv.setAttributeIndicesArray(new int[] { 0 });
+		stwv.setAttributeIndicesArray(new int[] { 1 });
 		stwv.setLowerCaseTokens(true);
 		stwv.setOutputWordCounts(true);
 		stwv.setInputFormat(data);
@@ -56,7 +62,7 @@ public class arff2Bow {
 	}
 
 	//remove
-	public Instances atributuakKendu(Instances test) throws Exception {
+	public static Instances atributuakKendu(Instances test) throws Exception {
 		Remove r = new Remove();
 		r.setAttributeIndicesArray(new int[]{ 0,2,3});		//0.2 eta 3 zutabeak, atributu horiek eraginik ez dutelako.
 		r.setInvertSelection(true);
@@ -65,6 +71,8 @@ public class arff2Bow {
 }
 	
 	public static Instances infoGainAttributeEvalAplikatu(Instances data) throws Exception {
+		//System.out.println(data.numAttributes());
+		
 		Ranker r = new Ranker();
 		InfoGainAttributeEval i = new InfoGainAttributeEval();
 		AttributeSelection aS = new AttributeSelection();
@@ -72,6 +80,12 @@ public class arff2Bow {
 		r.setThreshold(0.0001);
 		aS.setSearch(r);
 		aS.setEvaluator(i);
+		
+
+		
+		
+		
+		
 		aS.SelectAttributes(data);
 		int[] gordetako_Atributuak = aS.selectedAttributes();
 		Remove remove = new Remove(); 
