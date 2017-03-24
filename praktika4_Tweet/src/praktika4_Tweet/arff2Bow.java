@@ -29,6 +29,7 @@ public class arff2Bow {
 		
 		Instances datuak_filtratuta = stringToWordVector(data, Integer.MAX_VALUE, false);
 		datuak_filtratuta = sparseToNonSparseAplikatu(datuak_filtratuta);
+		//datuak_filtratuta = 
 		
 		gorde.setInstances(datuak_filtratuta);
 		gorde.setFile(f);
