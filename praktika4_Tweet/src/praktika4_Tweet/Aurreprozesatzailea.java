@@ -15,17 +15,6 @@ import weka.filters.Filter;
 public class Aurreprozesatzailea {
 	
 	static StringToWordVector bektor = new StringToWordVector();
-	
-	public static void main(String[] args) throws Exception {
-		for (int kont =0; kont<args.length; kont++){	
-			FileReader fi = new FileReader(args[kont]);
-			BufferedReader br = new BufferedReader(fi);
-			
-			FileWriter fw = new FileWriter(args[++kont]);
-			BufferedWriter bw = new BufferedWriter(fw);
-			Aurreprozesatzailea.arffIdatzi(bw, Aurreprozesatzailea.datuakIrakurri(br));
-		}
-	}
 
 	
 	public static ArrayList<String[]> datuakIrakurri(BufferedReader br) throws Exception {
