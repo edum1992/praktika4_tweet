@@ -5,6 +5,7 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
+import java.util.ArrayList;
 
 import weka.core.Instances;
 import weka.core.converters.ArffSaver;
@@ -40,14 +41,41 @@ public class Nagusia {
 		arff2Bow.atributuakKendu(train);
 		arff2Bow.atributuakKendu(test);
 		Instances datuak_kenduta = new Instances(dev);
-		datuak_kenduta.addAll(train);
-		datuak_kenduta.addAll(test);
+		
+		NireInstances berriak = new NireInstances(dev);
+		
+		//Textuko lerro bat kargatu ArrayList lerro bakoitzeko eta hau hiru fitxategiekin:
+		ArrayList<String> devr = new ArrayList<>();
+		BufferedReader brr = new BufferedReader(new FileReader(new File(args[0] + ".arff")));
+		String lerroa = "";
+		while ((lerroa = brr.readLine()) != null){
+			devr.add(lerroa);
+		}
+		brr.close();
+
+		brr = new BufferedReader(new FileReader(new File(args[1] + ".arff")));
+		ArrayList<String> trainr = new ArrayList<>();
+		lerroa = "";
+		while ((lerroa = brr.readLine()) != null){
+			trainr.add(lerroa);
+		}		
+		brr.close();
+		
+		brr = new BufferedReader(new FileReader(new File(args[2] + ".arff")));
+		ArrayList<String> testr = new ArrayList<>();
+		lerroa = "";
+		while ((lerroa = brr.readLine()) != null){
+			testr.add(lerroa);
+		}
+		//System.out.println(testr.size());
+		Instances datuak_batuta = berriak.addAll(testr, trainr, devr);
+		
 	
-		//Instances datuak_kenduta = arff2Bow.atributuakKendu(data);
+		datuak_kenduta = arff2Bow.atributuakKendu(datuak_batuta);
 
 		datuak_kenduta.setClassIndex(0);
 
-		System.out.println(datuak_kenduta.numAttributes());
+		
 		Instances datuak_BOW = arff2Bow.stringToWordVector(datuak_kenduta, Integer.MAX_VALUE, false);
 		datuak_BOW = arff2Bow.sparseToNonSparseAplikatu(datuak_BOW);
 
