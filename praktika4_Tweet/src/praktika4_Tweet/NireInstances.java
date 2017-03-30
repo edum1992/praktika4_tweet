@@ -40,10 +40,9 @@ public class NireInstances extends Instances {
 					iterator.remove();
 			}
 		}
-		System.err.println(this.fitxategiak[0].size());
 		int kop = 0;
 		for (int i = 0; i < fitxategiak[0].size(); i++) {
-			if (fitxategiak[0].get(1).startsWith("@"))
+			if (fitxategiak[0].get(i).startsWith("@"))
 				kop++;
 		}
 		ArrayList<String> osoa = new ArrayList<>();
