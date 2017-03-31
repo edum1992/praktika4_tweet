@@ -12,9 +12,8 @@ import java.util.Iterator;
 
 import weka.core.Instances;
 
-//KLASE HONEN ZERGATIA!!!!:
-
-//Klase hau instantziak batzeko egin dugu, Wekak ematen zuen errorea konpontzeko...
+//KLASE HONEN ZERGATIA:
+//Klase hau instantziak batzeko egin dugu, Wekak ematen zuen errorea konpontzeko, datuak batzerako orduan errore arraro bat ematen zuelako.
 
 public class NireInstances extends Instances {
 
@@ -30,7 +29,8 @@ public class NireInstances extends Instances {
 		super(data);
 		this.clear();
 	}
-
+	
+	//datuak batzeko metodoa
 	public NireInstances addAll(@SuppressWarnings("unchecked") ArrayList<String>... fitxategiak) throws IOException {
 		this.fitxategiak = fitxategiak;
 		this.instantziaKop = new int[this.fitxategiak.length];
@@ -64,6 +64,7 @@ public class NireInstances extends Instances {
 		return new NireInstances(new BufferedReader(new FileReader(new File(path))));
 	}
 
+	//datuen instantzia kopura itzultzen du, gero datu horiek banatzeko erabiliko duguna
 	public int[] banatzekoDatuak() {
 		return this.instantziaKop;
 	}
