@@ -94,8 +94,13 @@ public class Nagusia {
 //		for (int i = 0; i < train.numInstances(); i++) {
 //			System.out.println(train.get(i));
 //		}
-
-		//train = arff2Bow.infoGainAttributeEvalAplikatu(train);
+		Instances infoGain = new Instances(dev);
+		infoGain.addAll(train);
+		infoGain.setClassIndex(0);
+		infoGain = arff2Bow.infoGainAttributeEvalAplikatu(infoGain);
+		
+		dev = new Instances(infoGain, 0 , dev.numInstances());
+		train = new Instances(infoGain, dev.numInstances(), train.numInstances()-1);
 		
 		//INFOGAIN APLIKATZEA FALTA DAAA!!! ERROREA EMATEN DU, BERAZ HOBETO AURRERA JARRAITU
 		//ORAINDIK ASKO FALTA DELAKO, HOBETO BESTEAREKIN LEHENENGO AMAITU, BESTELA DENBORA BARIK LOTUKO GARELAKO!!!
