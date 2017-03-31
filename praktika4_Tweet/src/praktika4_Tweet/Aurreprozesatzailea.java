@@ -16,7 +16,12 @@ public class Aurreprozesatzailea {
 	
 	static StringToWordVector bektor = new StringToWordVector();
 
-	
+	/*datuakIrakurri metodoak, honakoa egiten du:
+		sartutako datuak irakurri.
+		Ondoren, lerroz lerro ArrayList batera gehitu.
+		Azkenik, lista zeharkatzen du eta karaktere arraroak kentzen ditu, hau da, letra normalak edo zenbakiak ez direnak kentzen ditu.
+		Array hori da itzultzen duena metodo honek
+	*/
 	public static ArrayList<String[]> datuakIrakurri(BufferedReader br) throws Exception {
 		ArrayList<String[]> arraya = new ArrayList<>();
 		String s;
@@ -35,7 +40,11 @@ public class Aurreprozesatzailea {
 		return arraya;
 	}
 		
-	
+	/*arffIdatzi metodoak:
+		textua lerroz lerro ArrayList batean emanda, arff bat idazten du.
+		Lehenik, beti berdinak diren atalak (@relation eta atributuen izenak eta motak) idazten ditu edozein arff izanda.
+		Ondoren, lista zeharkatzen du eta arff-a idazten du, arff-ak duen formatoa mantenduz eta listako datuak sartuz.
+	*/
 	public static void arffIdatzi(BufferedWriter bw, ArrayList<String[]> array) throws IOException {
 		bw.write("@relation tweet");
 		bw.newLine();
