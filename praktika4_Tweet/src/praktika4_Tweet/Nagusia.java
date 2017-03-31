@@ -29,10 +29,10 @@ public class Nagusia {
 			BufferedReader bw = new BufferedReader(fi);
 			if (args[i].toLowerCase().contains("dev"))
 				dev = new Instances(bw);
-			else if (args[i].toLowerCase().contains("test"))
-				test = new Instances(bw);
 			else if (args[i].toLowerCase().contains("train"))
 				train = new Instances(bw);
+			else if (args[i].toLowerCase().contains("test"))
+				test = new Instances(bw);
 
 			fi.close();
 		}
@@ -67,8 +67,8 @@ public class Nagusia {
 		while ((lerroa = brr.readLine()) != null){
 			testr.add(lerroa);
 		}
-		//System.out.println(testr.size());
-		NireInstances datuak_batuta = berriak.addAll(testr, trainr, devr);
+		
+		NireInstances datuak_batuta = berriak.addAll(devr, trainr, testr);
 		
 	
 		datuak_kenduta = arff2Bow.atributuakKendu(datuak_batuta);
@@ -79,15 +79,29 @@ public class Nagusia {
 		Instances datuak_BOW = arff2Bow.stringToWordVector(datuak_kenduta, Integer.MAX_VALUE, false);
 		datuak_BOW = arff2Bow.sparseToNonSparseAplikatu(datuak_BOW);
 		
+		int g1 = berriak.banatzekoDatuak()[0] + berriak.banatzekoDatuak()[1];
+		int g11 = berriak.banatzekoDatuak()[0] +1;
+		int g2 =  berriak.banatzekoDatuak()[1] - 1;
+		int g22 = g1 +1;
+		int g23 = berriak.banatzekoDatuak()[2] -1;
+		System.out.println(0 + ", " + berriak.banatzekoDatuak()[0]);
+		System.out.println(g11 + ", " + berriak.banatzekoDatuak()[1]);
+		System.out.println(g22 + ", " + berriak.banatzekoDatuak()[2]);
+		
+		
+		
 		dev = new Instances(datuak_BOW, 0, berriak.banatzekoDatuak()[0]);	//lehenengo datuak dev direnez, lehenengo dev atera behar da
-		train = new Instances(datuak_BOW, berriak.banatzekoDatuak()[0], berriak.banatzekoDatuak()[1]);
-		test = new Instances(datuak_BOW, berriak.banatzekoDatuak()[0] + berriak.banatzekoDatuak()[1], berriak.banatzekoDatuak()[2]);
+		train = new Instances(datuak_BOW, g11,g2);
+		test = new Instances(datuak_BOW, g22 , g23);
 		
 		dev.setClassIndex(0);
 		train.setClassIndex(0);
 		test.setClassIndex(0);
-		
-		//train = arff2Bow.infoGainAttributeEvalAplikatu(train);
+//		for (int i = 0; i < train.numInstances(); i++) {
+//			System.out.println(train.get(i));
+//		}
+
+		train = arff2Bow.infoGainAttributeEvalAplikatu(train);
 		
 		//INFOGAIN APLIKATZEA FALTA DAAA!!! ERROREA EMATEN DU, BERAZ HOBETO AURRERA JARRAITU
 		//ORAINDIK ASKO FALTA DELAKO, HOBETO BESTEAREKIN LEHENENGO AMAITU, BESTELA DENBORA BARIK LOTUKO GARELAKO!!!
@@ -105,14 +119,14 @@ public class Nagusia {
 		gorde.writeBatch();
 		
 		gorde = new ArffSaver();
-		f = new File(args[0]+"_TFIDF_train.arff");
-		gorde.setInstances(train);
+		f = new File(args[0]+"_TFIDF_test.arff");
+		gorde.setInstances(test);
 		gorde.setFile(f);
 		gorde.writeBatch();
 		
 		gorde = new ArffSaver();
-		f = new File(args[0]+"_TFIDF_test.arff");
-		gorde.setInstances(test);
+		f = new File(args[0]+"_TFIDF_train.arff");
+		gorde.setInstances(train);
 		gorde.setFile(f);
 		gorde.writeBatch();
 	}
