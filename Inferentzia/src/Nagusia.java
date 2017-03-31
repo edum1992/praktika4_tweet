@@ -23,8 +23,8 @@ public class Nagusia {
 			fi.close();
 		}
 
-		train.setClassIndex(0);
-		dev.setClassIndex(0);
+		train.setClassIndex(train.numAttributes() -1);
+		dev.setClassIndex(dev.numAttributes() -1);
 
 		//dev eta train batu:
 		Instances data = new Instances(dev);
@@ -33,7 +33,7 @@ public class Nagusia {
 		System.out.println("Instantzia kopurua: " + data.numInstances());
 		System.out.println("Atributu kopurua: " + data.numAttributes());
 
-		data.setClassIndex(0);
+		data.setClassIndex(data.numAttributes()-1);
 
 		//naiveBayes eta randomForest sailkatzaileak entrenatu, bakoitzean ebaluazio ez-zintzoa, trainVSdev eta crossValidation metodoekin.
 		s.naiveBayes(data, dev, train, args[0]);

@@ -71,16 +71,20 @@ public class Sailkatu {
 	
 
 	public void randomForestEgin(Instances data, Instances dev, Instances train, String path) throws Exception {
+		
 		RandomForest klasifikatzailea = new RandomForest();
+		klasifikatzailea.setNumExecutionSlots(4); //arinago probatzeko
 		CVParameterSelection cv = new CVParameterSelection();
 		cv.setClassifier(klasifikatzailea);
 		cv.addCVParameter("K 1 10 2");			//Probatzeko 2 jarri dut, 5 edo 10ekin gero nahikoa zen
 		cv.addCVParameter("M 1 10 2"); 
+		cv.setNumFolds(2);
 		cv.setSeed(1);
 		cv.buildClassifier(data);
 		System.out.println(Utils.joinOptions(cv.getBestClassifierOptions()));
 		klasifikatzailea = new RandomForest();
 		klasifikatzailea.setOptions(cv.getBestClassifierOptions());
+		klasifikatzailea.setNumExecutionSlots(4); //arinago probatzeko
 		
 		
 		System.out.println("\nRandom Forest aplikatu:");
@@ -89,11 +93,15 @@ public class Sailkatu {
 		
 		klasifikatzailea = new RandomForest();
 		klasifikatzailea.setOptions(cv.getBestClassifierOptions());
+		klasifikatzailea.setNumExecutionSlots(4); //arinago probatzeko
 		this.trainVSdev(dev, train, klasifikatzailea);
+		
 		
 		klasifikatzailea = new RandomForest();
 		klasifikatzailea.setOptions(cv.getBestClassifierOptions());
+		klasifikatzailea.setNumExecutionSlots(4); //arinago probatzeko
 		this.crossValidation(data, klasifikatzailea);
+		
 		
 	}
 }
