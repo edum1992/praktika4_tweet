@@ -19,17 +19,21 @@ import weka.filters.unsupervised.instance.SparseToNonSparse;
 
 public class arff2Bow {
 
-	public static void main(String[] args) throws Exception {
-
-	}
-
+	/*sparseToNonSparse metodoak, honakoa egiten du:
+		datu batzuk emanda, SparseToNonSparse filtroa aplikatzen dio.
+		Sartutako instantzia guztiak SparseToNonSparse formatoan bilakatzen dituen filtroa da.
+	*/
 	public static Instances sparseToNonSparseAplikatu(Instances data) throws Exception {
 		SparseToNonSparse stns = new SparseToNonSparse();
 		stns.setInputFormat(data);
 		return Filter.useFilter(data, stns);
 	}
 
-	// BagOfWords
+	/*stringToWordVector:
+		datuei filtro hau aplikatzerako orduan, Bag Of Words delakoa egiten da.
+		bektore batetan bilakatzen ditugu, eta lerro horretan hitz bakoitza zenbat aldiz agertzen den erakusten du.
+		boolean bat pasatzen diogu, TFT eta IDFT egitea esateko, hau da, boolean hori true bada, TFT eta IDFT aplikatuko du, bestela ez.
+	*/
 	public static Instances stringToWordVector(Instances data, int hitzKopurua, boolean erabilia) throws Exception {
 		StringToWordVector stwv = new StringToWordVector(hitzKopurua);
 		stwv.setIDFTransform(erabilia);
@@ -41,21 +45,20 @@ public class arff2Bow {
 		return Filter.useFilter(data, stwv);
 	}
 
-	// remove
+	// atributuakKendu metodoak, guretzako erabilerarik ez duten atributuak kentzen ditu, informazio baliagarririk ez dutelako ematen.
 	public static Instances atributuakKendu(Instances test) throws Exception {
 		Remove r = new Remove();
-		r.setAttributeIndicesArray(new int[] { 0, 2, 3 }); // 0.2 eta 3
-															// zutabeak,
-															// atributu horiek
-															// eraginik ez
-															// dutelako.
+		r.setAttributeIndicesArray(new int[] { 0, 2, 3 }); // 0.2 eta 3 zutabeak, atributu horiek eraginik ez dutelako.
 		r.setInputFormat(test);
 		return Filter.useFilter(test, r);
 	}
 
+	/*infoGainAttributeEvalAplikatu:
+		datuei filtro hau aplikatzerako orduan, atributuen balioa neurtzen du klasearekiko.
+		0.0001 baino balio gutxiagoa duten hitzak datuetatik kentzen ditu.
+		Hitz horiek informazio eskasa ematen dutelako klasea iragartzeko orduan.
+	*/
 	public static Instances infoGainAttributeEvalAplikatu(Instances data) throws Exception {
-		// System.out.println(data.numAttributes());
-
 		Ranker r = new Ranker();
 		InfoGainAttributeEval i = new InfoGainAttributeEval();
 		AttributeSelection aS = new AttributeSelection();
@@ -67,17 +70,9 @@ public class arff2Bow {
 		aS.SelectAttributes(data);
 		int[] gordetako_Atributuak = aS.selectedAttributes();
 		Remove remove = new Remove();
-		remove.setAttributeIndicesArray(gordetako_Atributuak); // atributu onak
-																// pasatzen
-																// diogu, los
-																// que nos
-																// queremos
-																// quedar
-		remove.setInvertSelection(true); // en vez de borrar los que le pasas,
-											// que borre los demas.
+		remove.setAttributeIndicesArray(gordetako_Atributuak); // atributu onak pasatzen diogu, gorde nahi ditugunak
+		remove.setInvertSelection(true); // beraz, invert egitean gordetako atributuak ez ezik, besteak kentzen ditugu.
 		remove.setInputFormat(data);
 		return Filter.useFilter(data, remove);
-
 	}
-
 }
