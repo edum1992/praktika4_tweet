@@ -2,15 +2,11 @@ package praktika4_Tweet;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import weka.filters.unsupervised.attribute.*;
 
-import weka.filters.Filter;
 
 public class Aurreprozesatzailea {
 	

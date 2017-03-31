@@ -83,13 +83,7 @@ public class Nagusia {
 		int g11 = berriak.banatzekoDatuak()[0] +1;
 		int g2 =  berriak.banatzekoDatuak()[1] - 1;
 		int g22 = g1 +1;
-		int g23 = berriak.banatzekoDatuak()[2] -1;
-		System.out.println(0 + ", " + berriak.banatzekoDatuak()[0]);
-		System.out.println(g11 + ", " + berriak.banatzekoDatuak()[1]);
-		System.out.println(g22 + ", " + berriak.banatzekoDatuak()[2]);
-		
-		
-		
+		int g23 = berriak.banatzekoDatuak()[2] -1;			
 		dev = new Instances(datuak_BOW, 0, berriak.banatzekoDatuak()[0]);	//lehenengo datuak dev direnez, lehenengo dev atera behar da
 		train = new Instances(datuak_BOW, g11,g2);
 		test = new Instances(datuak_BOW, g22 , g23);
@@ -101,7 +95,7 @@ public class Nagusia {
 //			System.out.println(train.get(i));
 //		}
 
-		train = arff2Bow.infoGainAttributeEvalAplikatu(train);
+		//train = arff2Bow.infoGainAttributeEvalAplikatu(train);
 		
 		//INFOGAIN APLIKATZEA FALTA DAAA!!! ERROREA EMATEN DU, BERAZ HOBETO AURRERA JARRAITU
 		//ORAINDIK ASKO FALTA DELAKO, HOBETO BESTEAREKIN LEHENENGO AMAITU, BESTELA DENBORA BARIK LOTUKO GARELAKO!!!
@@ -119,13 +113,16 @@ public class Nagusia {
 		gorde.writeBatch();
 		
 		gorde = new ArffSaver();
-		f = new File(args[0]+"_TFIDF_test.arff");
+		f = new File(args[2]+"_TFIDF_test.arff");
 		gorde.setInstances(test);
 		gorde.setFile(f);
 		gorde.writeBatch();
 		
+		/*train-a gordetzerakoan, klasearen izena zenbaki modura agertzen da.
+		 * Izen hori, BOW-a egiterakoan ageri delako, baina ez du errorerik ematen wekan 
+		 */
 		gorde = new ArffSaver();
-		f = new File(args[0]+"_TFIDF_train.arff");
+		f = new File(args[1]+"_TFIDF_train.arff");
 		gorde.setInstances(train);
 		gorde.setFile(f);
 		gorde.writeBatch();

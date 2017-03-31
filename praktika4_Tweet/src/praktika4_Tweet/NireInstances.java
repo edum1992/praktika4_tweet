@@ -36,7 +36,8 @@ public class NireInstances extends Instances {
 		this.instantziaKop = new int[this.fitxategiak.length];
 		for (int i = 1; i < this.fitxategiak.length; i++) {
 			for (Iterator<String> iterator = this.fitxategiak[i].iterator(); iterator.hasNext();) {
-				if (iterator.next().startsWith("@"))
+				String oraingoa = iterator.next();
+				if (oraingoa.trim().startsWith("@") || oraingoa.trim().isEmpty())
 					iterator.remove();
 			}
 		}
