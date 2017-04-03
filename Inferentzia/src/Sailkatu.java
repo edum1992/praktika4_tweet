@@ -122,7 +122,7 @@ public class Sailkatu {
 		klasifikatzailea = new RandomForest();
 		klasifikatzailea.setOptions(cv.getBestClassifierOptions());
 		klasifikatzailea.setNumExecutionSlots(4); //arinago probatzeko
-		this.crossValidation(data, klasifikatzailea);
+		this.tenFoldCrossValidation(data, klasifikatzailea);
 		
 		
 	}
