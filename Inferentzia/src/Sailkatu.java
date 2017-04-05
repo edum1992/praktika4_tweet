@@ -94,12 +94,14 @@ public class Sailkatu {
 	*/
 	public void randomForestEgin(Instances data, Instances dev, Instances train, String path) throws Exception {
 		
+		System.out.println("\nRANDOM FOREST: ");
+		
 		RandomForest klasifikatzailea = new RandomForest();
 		klasifikatzailea.setNumExecutionSlots(4); //arinago probatzeko
 		CVParameterSelection cv = new CVParameterSelection();
 		cv.setClassifier(klasifikatzailea);
-		cv.addCVParameter("K 1 10 5");	
-		cv.addCVParameter("M 1 10 5"); 
+		cv.addCVParameter("K 1 10 2");	
+		cv.addCVParameter("M 1 10 2"); 
 		cv.setNumFolds(2);
 		cv.setSeed(1);
 		cv.buildClassifier(data);
@@ -124,6 +126,6 @@ public class Sailkatu {
 		klasifikatzailea.setNumExecutionSlots(4); //arinago probatzeko
 		this.tenFoldCrossValidation(data, klasifikatzailea);
 		
-		
+		System.out.println("\nRANDOM FOREST BUKATUTA!!");
 	}
 }

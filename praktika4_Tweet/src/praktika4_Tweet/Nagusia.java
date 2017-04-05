@@ -102,8 +102,6 @@ public class Nagusia {
 		dev = new Instances(infoGain, 0 , dev.numInstances());
 		train = new Instances(infoGain, dev.numInstances(), train.numInstances()-1);
 		
-		//INFOGAIN APLIKATZEA FALTA DAAA!!! ERROREA EMATEN DU, BERAZ HOBETO AURRERA JARRAITU
-		//ORAINDIK ASKO FALTA DELAKO, HOBETO BESTEAREKIN LEHENENGO AMAITU, BESTELA DENBORA BARIK LOTUKO GARELAKO!!!
 		
 		dev = arff2Bow.stringToWordVector(dev, Integer.MAX_VALUE, true);
 		train = arff2Bow.stringToWordVector(train, Integer.MAX_VALUE, true);
