@@ -20,7 +20,7 @@ Aurreprozesamendua
 	
 	Erabileraren adibidea:
 	Kontsolan:
-		java -jar Preprocess.jar HEMEN 3 CSV-EN HELBIDEA!!!
+		java -jar Preprocess.jar C:\path\tweetSentiment.dev.csv C:\path\tweetSentiment.train.csv C:\path\tweetSentiment.test_blind.csv
 	Irteera:
 		.csv-ak dauden karpetan gordeko ditu hiru .arff-ak
 
@@ -37,7 +37,7 @@ Inferentzia
 	
 	Erabileraren adibidea:
 		Kontsolan:
-			java -jar GetModel.jar HEMEN 2 ARFF-EN HELBIDEA!!!
+			java -jar GetModel.jar C:\path\tweetSentiment.dev.csv_TFIDF_dev.arff C:\path\tweetSentiment.train.csv_TFIDF_train.arff
 		Irteera:
 			sartutako lehen fitxategiaren karpetan gordeko ditu modeloak.
 
@@ -51,6 +51,6 @@ Sailkapena
 	
 	Erabileraren adibidea:
 		Kontsolan:
-			java -jar Classify.jar HEMEN ARFF ETA MODEL-AREN HELBIDEA!!!
+			java -jar Classify.jar C:\path\tweetSentiment.test_blind.csv_TFIDF_test.arff C:\path\RandomForest.model
 		Irteera:
 			.arff-a, hau da, testa dagoen karpetan gordeko du iragarpenen .arff-a.
