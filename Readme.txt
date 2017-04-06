@@ -33,7 +33,7 @@ Inferentzia
 		- NaiveBayes erabiliz lortuko dugun modeloa.
 	
 	Aurre-baldintza: Bi .arff fixategi sartu, bat train eta bestea dev, edozein ordenetan.
-	Post-baldintza: Bi .model iztuliko ditu.
+	Post-baldintza: Bi .model itzuliko ditu.
 	
 	Erabileraren adibidea:
 		Kontsolan:
@@ -46,6 +46,9 @@ Sailkapena
 	Programa honen helburua, klasea iragartzea da, beraz modelo bat eta test .arff-a pasatuko diogu edozein ordenetan.
 	Haiekin, instantzia bakoitzaren klasea iragarriko du eta predictions.arff baten sartuko ditu.
 
+	Aurre-baldintza: .arff fitxategi bat (test) eta .model bat, edozein ordenetan.
+	Post-baldintza: iragarritako klasez betetako .arff-a.
+	
 	Erabileraren adibidea:
 		Kontsolan:
 			java -jar Classify.jar HEMEN ARFF ETA MODEL-AREN HELBIDEA!!!
