@@ -39,7 +39,7 @@ Inferentzia
 		Kontsolan:
 			java -jar GetModel.jar HEMEN 2 ARFF-EN HELBIDEA!!!
 		Irteera:
-			.arff-ak dauden karpetan gordeko ditu modeloak.
+			sartutako lehen fitxategiaren karpetan gordeko ditu modeloak.
 
 Sailkapena
 
@@ -50,4 +50,4 @@ Sailkapena
 		Kontsolan:
 			java -jar Classify.jar HEMEN ARFF ETA MODEL-AREN HELBIDEA!!!
 		Irteera:
-			sartutako lehen fitxategiaren karpetan gordeko ditu modeloak. fitxategia da
+			.arff-a, hau da, testa dagoen karpetan gordeko du iragarpenen .arff-a.
