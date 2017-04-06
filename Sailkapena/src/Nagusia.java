@@ -53,14 +53,6 @@ public class Nagusia {
 		return new String();
 	}
 	
-	public static void fitxategiaGorde(Instances data, String path) throws IOException {
-		ArffSaver s = new ArffSaver();
-		s.setFile(new File(path));
-		s.setInstances(data);
-		s.writeBatch();
-		
-	}
-	
 	public static Instances instantziakSailkatu(Classifier sailkatzailea, Instances data) throws Exception {
 		Instances sailkatuak = new Instances(data);
 		for (int i = 0; i < data.numInstances(); i++) {
