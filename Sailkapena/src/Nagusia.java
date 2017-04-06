@@ -9,27 +9,11 @@ import weka.core.SerializationHelper;
 import weka.core.converters.ArffSaver;
 
 public class Nagusia {
-	public static void main(String[] args) throws Exception {
-		hasieratu(args);
-	}
-
+	
 	private static Instances test;
 	private static Classifier modeloa;
-
-	private static void modelEdoArff(String[] args) throws Exception {
-		for (int i = 0; i < args.length; i++) {
-			if (args[i].contains(".model")) {
-				modeloa = (Classifier) SerializationHelper.read(args[i]);
-				System.out.println("Kargatutako sailkatzailearen modeloa " + args[i] + " da");
-			} else {
-				BufferedReader br = new BufferedReader(new FileReader(new File(args[i])));
-				test = new Instances(br);
-				System.out.println("Kargatutako arff fitxategia " + args[i] + " da");
-			}
-		}
-	}
-
-	private static void hasieratu(String[] args) throws Exception {
+	
+	public static void main(String[] args) throws Exception {
 		modelEdoArff(args);
 		test.setClassIndex(0);
 		Instances sailkatuak = instantziakSailkatu(modeloa, test);
@@ -42,6 +26,23 @@ public class Nagusia {
 		
 		String path = pathEraldatu(args);
 		System.out.println("Fitxategi sailkatua " + path + " karpetan gorde da");
+	}
+
+	/* Metodo honek, fitxategien path-a emanda:
+		modeloa bada, modeloa irakurri eta modeloa aldagaian gordetzen du.
+		.arff fitxategia bada, test datu sortan kargatzen du.
+	*/
+	private static void modelEdoArff(String[] args) throws Exception {
+		for (int i = 0; i < args.length; i++) {
+			if (args[i].contains(".model")) {
+				modeloa = (Classifier) SerializationHelper.read(args[i]);
+				System.out.println("Modeloa irakurri da");
+			} else {
+				BufferedReader br = new BufferedReader(new FileReader(new File(args[i])));
+				test = new Instances(br);
+				System.out.println("test fitxategia kargatu da");
+			}
+		}
 	}
 
 	private static String pathEraldatu(String[] args) {
